@@ -1,0 +1,58 @@
+{
+  "name": "@elizaos/eliza-plugin-heurist-mesh",
+  "description": "Heurist Mesh Agent integration for elizaOS",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "@elizaos/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup --format esm --dts",
+    "dev": "tsup --format esm --dts --watch",
+    "dev:restart": "nodemon --watch src --exec 'npm run build' --ext ts,js,json",
+    "test": "vitest run"
+  },
+  "agentConfig": {
+    "pluginType": "elizaos:plugin:1.0.0",
+    "pluginParameters": {
+      "HEURIST_API_KEY": {
+        "type": "string",
+        "description": "API key for Heurist Mesh Agent service"
+      }
+    }
+  },
+  "keywords": [
+    "elizaos-plugins",
+    "ai",
+    "crypto",
+    "blockchain",
+    "agent"
+  ],
+  "author": "Heurist Network",
+  "license": "MIT",
+  "dependencies": {
+    "@elizaos/core": "latest",
+    "axios": "^1.6.2",
+    "tsup": "^8.3.5",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "nodemon": "^3.1.9",
+    "typescript": "5.6.3",
+    "vitest": "3.0.5"
+  }
+} 
