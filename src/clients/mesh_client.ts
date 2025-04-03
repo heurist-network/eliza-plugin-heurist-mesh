@@ -21,9 +21,10 @@ export class MeshClient {
     try {
       const response = await axios.post(`${this.baseUrl}/mesh_request`, request);
       return response.data;
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(`Error calling Mesh Agent ${agentId}:`, error);
-      throw new Error(`Failed to call Mesh Agent: ${error.message}`);
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      throw new Error(`Failed to call Mesh Agent: ${message}`);
     }
   }
 
@@ -41,9 +42,10 @@ export class MeshClient {
     try {
       const response = await axios.post(`${this.baseUrl}/mesh_request`, request);
       return response.data;
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(`Error calling Mesh Agent tool ${agentId}.${tool}:`, error);
-      throw new Error(`Failed to call Mesh Agent tool: ${error.message}`);
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      throw new Error(`Failed to call Mesh Agent tool: ${message}`);
     }
   }
 
@@ -57,9 +59,10 @@ export class MeshClient {
       }
       
       return metadata[agentId];
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(`Error fetching agent metadata for ${agentId}:`, error);
-      throw new Error(`Failed to fetch agent metadata: ${error.message}`);
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      throw new Error(`Failed to fetch agent metadata: ${message}`);
     }
   }
 } 
