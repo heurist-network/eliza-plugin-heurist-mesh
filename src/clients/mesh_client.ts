@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { MeshAgentRequest, MeshAgentResponse, MeshAgentMetadata } from '../types';
+import type { MeshAgentMetadata, MeshAgentRequest, MeshAgentResponse } from '../types';
 
 export class MeshClient {
-  private baseUrl: string = 'https://sequencer-v2.heurist.xyz';
+  private baseUrl = 'https://sequencer-v2.heurist.xyz';
   private apiKey: string;
 
   constructor(apiKey: string) {
@@ -13,9 +13,9 @@ export class MeshClient {
     const request: MeshAgentRequest = {
       agent_id: agentId,
       input: {
-        query: query
+        query: query,
       },
-      api_key: this.apiKey
+      api_key: this.apiKey,
     };
 
     try {
@@ -28,15 +28,19 @@ export class MeshClient {
     }
   }
 
-  async callAgentTool(agentId: string, tool: string, args: Record<string, any>): Promise<MeshAgentResponse> {
+  async callAgentTool(
+    agentId: string,
+    tool: string,
+    args: Record<string, any>
+  ): Promise<MeshAgentResponse> {
     const request: MeshAgentRequest = {
       agent_id: agentId,
       input: {
         tool: tool,
         tool_arguments: args,
-        raw_data_only: true
+        raw_data_only: true,
       },
-      api_key: this.apiKey
+      api_key: this.apiKey,
     };
 
     try {
@@ -53,11 +57,11 @@ export class MeshClient {
     try {
       const response = await axios.get(`${this.baseUrl}/mesh_agents_metadata.json`);
       const metadata = response.data;
-      
+
       if (!metadata[agentId]) {
         throw new Error(`Agent ${agentId} not found in metadata`);
       }
-      
+
       return metadata[agentId];
     } catch (error: unknown) {
       console.error(`Error fetching agent metadata for ${agentId}:`, error);
@@ -65,4 +69,4 @@ export class MeshClient {
       throw new Error(`Failed to fetch agent metadata: ${message}`);
     }
   }
-} 
+}

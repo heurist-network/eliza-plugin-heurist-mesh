@@ -28,9 +28,9 @@ export class DexScreenerTokenInfoAction extends BaseMeshAction {
   }
 
   async getTokenPairs(chain: string, tokenAddress: string) {
-    return this.client.callAgentTool(this.agentId, 'get_token_pairs', { 
-      chain: chain, 
-      token_address: tokenAddress 
+    return this.client.callAgentTool(this.agentId, 'get_token_pairs', {
+      chain: chain,
+      token_address: tokenAddress,
     });
   }
 }
@@ -43,7 +43,7 @@ export class GoplusAnalysisAction extends BaseMeshAction {
   async fetchSecurityDetails(contractAddress: string, chainId: string | number) {
     return this.client.callAgentTool(this.agentId, 'fetch_security_details', {
       contract_address: contractAddress,
-      chain_id: chainId
+      chain_id: chainId,
     });
   }
-} 
+}

@@ -2,6 +2,78 @@
 
 This plugin integrates the Heurist Mesh Agent services into elizaOS, providing access to specialized Web3 tools and blockchain analysis capabilities.
 
+## Development
+
+```bash
+# Install dependencies
+bun install
+
+# Start development with hot-reloading
+bun run dev
+
+# Build the plugin
+bun run build
+
+# Generate type definitions
+bun run types
+
+# Run code quality checks
+bun run check
+
+# Format code
+bun run check:write
+
+# Bump version
+bun run version:patch  # For patch version
+bun run version:minor  # For minor version
+bun run version:major  # For major version
+```
+
+## Code Quality
+
+This project uses [Biome](https://biomejs.dev/) for code formatting and linting. The configuration can be found in `biome.json`.
+
+## Publishing
+
+Before publishing your plugin to the ElizaOS registry, ensure you meet these requirements:
+
+1. **GitHub Repository**
+   - Create a public GitHub repository for this plugin
+   - Add the 'elizaos-plugins' topic to the repository
+   - Use 'main' as the default branch
+
+2. **Required Assets**
+   - Add images to the `images/` directory:
+     - `logo.jpg` (400x400px square, <500KB)
+     - `banner.jpg` (1280x640px, <1MB)
+
+3. **Publishing Process**
+   ```bash
+   # Check if your plugin meets all registry requirements
+   bunx elizaos plugin publish --test
+   
+   # Publish to the registry
+   bunx elizaos plugin publish
+   ```
+
+After publishing, your plugin will be submitted as a pull request to the ElizaOS registry for review.
+
+## Configuration
+
+The `agentConfig` section in `package.json` defines the parameters your plugin requires:
+
+```json
+"agentConfig": {
+  "pluginType": "elizaos:plugin:1.0.0",
+  "pluginParameters": {
+    "HEURIST_API_KEY": {
+      "type": "string",
+      "description": "API key for Heurist Mesh Agent service"
+    }
+  }
+}
+```
+
 ## Features
 
 - Interact with cryptocurrency market data (CoinGecko)
@@ -9,20 +81,6 @@ This plugin integrates the Heurist Mesh Agent services into elizaOS, providing a
 - Check token contract security (GoPlus)
 - Natural language queries to all available Mesh agents
 - Advanced blockchain data analysis
-
-## Installation
-
-1. Install the plugin in your elizaOS environment:
-```bash
-npm install @elizaos/eliza-plugin-heurist-mesh
-```
-
-2. Configure your Heurist API key in elizaOS settings:
-```json
-{
-  "HEURIST_API_KEY": "your-api-key-here"
-}
-```
 
 ## Available Actions
 
@@ -89,36 +147,6 @@ await eliza.execute("queryAgent", {
   query: "What is the current price of Bitcoin?"
 });
 ```
-
-## Development
-
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/eliza-plugin-heurist-mesh.git
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Build the plugin:
-```bash
-npm run build
-```
-
-4. Run tests:
-```bash
-npm test
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 

@@ -19,7 +19,7 @@ export type AgentTools = {
   [key: string]: {
     description: string;
     parameters: Record<string, any>;
-  }
+  };
 };
 
 export interface MeshAgentMetadata {
@@ -41,4 +41,4 @@ export interface MeshAgentMetadata {
 
 export interface HeuristMeshPluginConfig {
   availableAgents: string[];
-} 
+}

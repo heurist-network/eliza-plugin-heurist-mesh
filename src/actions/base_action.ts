@@ -12,4 +12,4 @@ export class BaseMeshAction {
   async naturalLanguageQuery(query: string) {
     return this.client.callAgent(this.agentId, query);
   }
-} 
+}

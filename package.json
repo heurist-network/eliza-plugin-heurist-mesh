@@ -1,29 +1,49 @@
 {
   "name": "@elizaos/eliza-plugin-heurist-mesh",
   "description": "Heurist Mesh Agent integration for elizaOS",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.13",
+  "private": true,
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "@elizaos/source": "./src/index.ts",
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heurist-network/eliza-plugin-heurist-mesh.git"
   },
   "files": [
     "dist"
   ],
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "dependencies": {
+    "@elizaos/core": "1.0.0-beta.16",
+    "axios": "^1.6.2",
+    "zod": "3.24.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "1.2.5",
+    "bumpp": "10.1.0",
+    "typescript": "^5.0.0"
+  },
   "scripts": {
-    "build": "tsup --format esm --dts",
-    "dev": "tsup --format esm --dts --watch",
-    "dev:restart": "nodemon --watch src --exec 'npm run build' --ext ts,js,json",
-    "test": "vitest run"
+    "dev": "bun run build --watch",
+    "build": "bun build ./src/index.ts --outdir ./dist --target node --minify --treeshake",
+    "types": "tsc --emitDeclarationOnly --outDir ./dist",
+    "format": "bunx @biomejs/biome format --write ./src",
+    "lint": "bunx @biomejs/biome lint ./src",
+    "check": "bunx @biomejs/biome check ./src",
+    "check:write": "bunx @biomejs/biome check --write ./src",
+    "ci": "bunx @biomejs/biome ci ./src",
+    "start:dev": "bun run build && elizaos dev",
+    "version:patch": "bunx bumpp patch --tag -y",
+    "version:minor": "bunx bumpp minor --tag -y",
+    "version:major": "bunx bumpp major --tag -y",
+    "release:patch": "bun run version:patch && git push --follow-tags",
+    "release:minor": "bun run version:minor && git push --follow-tags",
+    "release:major": "bun run version:major && git push --follow-tags"
   },
   "agentConfig": {
     "pluginType": "elizaos:plugin:1.0.0",
@@ -42,17 +62,5 @@
     "agent"
   ],
   "author": "Heurist Network",
-  "license": "MIT",
-  "dependencies": {
-    "@elizaos/core": "latest",
-    "axios": "^1.6.2",
-    "tsup": "^8.3.5",
-    "zod": "^3.24.2"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "nodemon": "^3.1.9",
-    "typescript": "5.6.3",
-    "vitest": "3.0.5"
-  }
-} 
+  "license": "MIT"
+}
